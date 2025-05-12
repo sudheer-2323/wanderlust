@@ -1,10 +1,15 @@
 <% layout("/layouts/boilerplate") %>
 <style>
-  #filters{
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-  }
+ #filters {
+  display: flex;
+  flex-wrap: nowrap; /* Prevent wrapping on small screens */
+  overflow-x: auto;   /* Enable horizontal scroll */
+  white-space: nowrap;
+  align-items: center;
+  padding-bottom: 1rem; /* Optional: spacing for scrollbar */
+  scrollbar-width: thin; /* For Firefox */
+  -webkit-overflow-scrolling: touch; /* Smooth scroll on iOS */
+}
   .filter{
     text-align: center;
     margin-right: 2rem;
