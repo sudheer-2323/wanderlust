@@ -1,4 +1,7 @@
 <style>
+  .navbar-brand-text:hover{
+    color:#fe424d;
+    }
   .btn-search{
     background-color: #fe424d;
     color: #fff;
@@ -39,17 +42,17 @@
           <a class="nav-link" href="/listings"> <span class="navbar-brand-text fw-bold"
         style="font-family: 'Plus Jakarta Sans', 'Poppins', sans-serif; font-size: 1.45rem; color: #ff2323; letter-spacing: 1.5px; text-shadow: 0 2px 8px #22c95e11;">BooknRest</span></a>
         </div>
-        <div class="navbar-nav ms-auto">
+        <div class="navbar-nav ms-auto ">
           <form class="d-flex" role="search" method="GET" action="/listings">
             <input class="form-control me-2 search-inp" type="search" name="search" placeholder="Search Destinations" aria-label="Search"/>
             <button class="btn btn-search search" type="submit"><i class="fa-solid fa-magnifying-glass"></i>Search</button>
           </form>
         </div>
         <div class="navbar-nav ms-auto">
-           <a class="nav-link btn px-4 btn-animate btn-login" href="/listings/new" style="background-color: #fe424d;">Create</a>
+           <a class="nav-link btn px-4 btn-animate btn-login" href="/listings/new" style="background-color: #fe424d; margin-top: 2px;">Create</a>
           <% if(!currUser){ %>
-          <a class="nav-link px-4 "  href="/signup"><b>SignUp</b></a>
-          <a class="nav-link px-4 " href="/login"><b>Login</b></a>
+          <a class="nav-link px-4 "  href="/signup" style="margin-top: 2px;"><b>SignUp</b></a>
+          <a class="nav-link px-4 " href="/login" style="margin-top: 2px;"><b>Login</b></a>
           <% } %>
           <% if(currUser){ %>
           <a class="nav-link btn px-4 btn-animate btn-login" href="/logout"><b>Logout</b></a>
