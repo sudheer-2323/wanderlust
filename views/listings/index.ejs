@@ -46,7 +46,7 @@
   padding: 0.5rem 1rem;
   border: 1px solid #ccc;
   border-radius: 2rem;
-  background-color: rgb(226, 183, 205);
+  background-color: pink;
   /* background-color: #f9f9f9; */
   transition: box-shadow 0.2s ease;
 }
@@ -64,6 +64,8 @@
   font-size: 1.5rem;
   color: #ec1422;
   opacity: 1;
+   z-index: 5;
+  position: relative;
   transition: transform 0.3s ease, opacity 0.5s ease;
 }
 
@@ -119,7 +121,7 @@
   margin-top: 5px;
   height: 40px;
   width: 180%;
-  background-color: #fe424d;
+  background-color: #e96972;
   border-radius: 20px;
   align-items: center;
 }
@@ -181,6 +183,11 @@
   margin: 1rem auto;
   padding: 0 1rem;
   max-width: 900px;
+}
+@media (max-width: 768px) {
+  #filters {
+    padding-left: 2.5rem; /* Same or more than left arrow button size */
+  }
 }
 
 
