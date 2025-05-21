@@ -1,18 +1,38 @@
 const Listing=require("../models/listing");
 
 module.exports.index=async (req,res)=>{
+    const {sort,priceRange}=req.query;
+    console.log(sort);
       const { category,search } = req.query;
+      let sortOption = {};
       let filter = {};
       if (category) {
         filter.category = category;
     }
+    if (priceRange) {
+    const [min, max] = priceRange.split('-').map(Number);
+    filter.price = { $gte: min, $lte: max };
+  }
     if (search) {
     filter.$or = [
       { location: { $regex: search, $options: "i" } },
       { country: { $regex: search, $options: "i" } }
     ];
   }
-    const allListings = await Listing.find(filter);
+    
+     if(sort){
+        if(sort=="asc"){
+             sortOption.price = 1;
+        }
+        else{
+            sortOption.price = -1;
+        }
+      }
+      const allListings = await Listing.find(filter).sort(sortOption);
+    if((allListings).length==0){
+        req.flash("error","No Listings found in this filter");
+        return res.redirect('/listings');
+    }
     res.render("listings/index", { allListings });
 }
 

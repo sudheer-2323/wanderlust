@@ -2,13 +2,17 @@
 <style>
  #filters {
   display: flex;
-  flex-wrap: nowrap; /* Prevent wrapping on small screens */
-  overflow-x: auto;   /* Enable horizontal scroll */
+  flex-wrap: nowrap;
+  overflow-x: auto;
   white-space: nowrap;
   align-items: center;
-  padding-bottom: 1rem; /* Optional: spacing for scrollbar */
-  scrollbar-width: thin; /* For Firefox */
-  -webkit-overflow-scrolling: touch; /* Smooth scroll on iOS */
+  width: 800px; /* 💡 This is the key! You can adjust this value */
+  padding-bottom: 0.5rem;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+  z-index: 1;
+  position: relative;
+  scroll-behavior: smooth;
 }
   .filter{
     text-align: center;
@@ -26,24 +30,209 @@
   .tax-info{
     display: none;
   }
-  .tax-toggle{
-    border: 1px solid black;
-    border-radius: 1rem;
-    height: 3.25rem;
-    padding: 1rem;
-    margin-left: 2rem;
-    display: flex;
-    align-items: center;
-  }
+  .tax-toggle {
+  display: flex;
+  margin-top: 5px;
+  justify-content: flex-end;
+  align-items: center;
+  /* margin: 1rem auto; */
+  width: 75%; /* aligns with filters */
+}
+
+.tax-toggle .form-check-reverse {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 2rem;
+  background-color: rgb(226, 183, 205);
+  /* background-color: #f9f9f9; */
+  transition: box-shadow 0.2s ease;
+}
+
+.tax-toggle .form-check-reverse:hover {
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+.tax-toggle .form-check-label {
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+  .filter i {
+  font-size: 1.5rem;
+  color: #ec1422;
+  opacity: 1;
+  transition: transform 0.3s ease, opacity 0.5s ease;
+}
+
+.filter:hover i {
+  transform: translateY(-15px); /* Raise the icon slightly on hover */
+  color: red;
+  opacity: 1;
+}
+.new-badge {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  background-color: #139230; /* Bootstrap success green */
+  color: white;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  z-index: 2;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+.filters-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden; /* hide any overflow */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.scroll-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: white;
+  border: none;
+  font-size: 1.2rem;
+  padding: 0.5rem;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+  cursor: pointer;
+  z-index: 2;
+}
+
+.left-btn {
+  left: 0;
+}
+.right-btn {
+  right: 0;
+}
+.filter-bar{
+  margin-top: 5px;
+  height: 40px;
+  width: 180%;
+  background-color: #fe424d;
+  border-radius: 20px;
+  align-items: center;
+}
+.filter-bar:hover{
+  background-color: #df6068;
+}
+.filter-bar i{
+  margin-left: 20px;
+  margin-top: 0.8rem;
+}
+.price-filter {
+  position: relative;
+  display: inline-block;
+  margin-left: 1rem;
+}
+
+.price-filter .dropdown-toggle {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.price-filter .dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #e7858b;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  padding: 0.5rem;
+  z-index: 100;
+  min-width: 180px;
+}
+
+.price-filter .dropdown-menu form {
+  margin-bottom: 0.5rem;
+}
+
+.price-filter .dropdown-menu button {
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.price-filter .dropdown-menu button:hover {
+  background-color: #f0f0f0;
+}
+.filters-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1rem auto;
+  padding: 0 1rem;
+  max-width: 900px;
+}
+
+
+
+
+
 </style>
 
 <body>
+<div class="filters-header">
+  <div class="filter-bar">
+    <div class="dropdown price-filter">
+      <button class="dropdown-toggle" id="priceFilterBtn">
+        <i class="fa-solid fa-filter"></i> Price ▼
+      </button>
+      <div class="dropdown-menu" id="priceDropdown">
+        <form method="GET" action="/listings">
+          <input type="hidden" name="sort" value="asc">
+          <button type="submit">Price: Low to High</button>
+        </form>
+        <form method="GET" action="/listings">
+          <input type="hidden" name="sort" value="desc">
+          <button type="submit">Price: High to Low</button>
+        </form>
+        <form method="GET" action="/listings">
+          <input type="hidden" name="priceRange" value="0-1000">
+          <button type="submit">Under ₹1000</button>
+        </form>
+        <form method="GET" action="/listings">
+          <input type="hidden" name="priceRange" value="1000-3000">
+          <button type="submit">₹1000 –  ₹3000</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="tax-toggle">
+    <div class="form-check-reverse form-switch">
+      <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault" style="width: 2rem; height: 1rem; margin-right: 0.3rem;">
+      <label class="form-check-label" for="switchCheckDefault">Total after taxes</label>
+    </div>
+  </div>
+</div>
+
+  <div class="filters-wrapper">
+  <button id="scrollLeft" class="scroll-btn left-btn"><i class="fa-solid fa-chevron-left"></i></button>
     <div id="filters">
       <div class="filter">
         <form  method="GET" action="/listings">
           <input type="hidden" name="category" value="Trending">
           <button type="submit" style="all: unset; cursor: pointer;">
-        <div><i class="fa-solid fa-fire"></i></div>
+        <div style="color: rgb(255, 0, 0);"><i class="fa-solid fa-fire"></i></div>
         <p>Trending</p>
         </button>
         </form>
@@ -135,13 +324,27 @@
         <p>House boats</p>
         </button></form>
       </div>
-      <div class="tax-toggle">
-      <div class="form-check-reverse form-switch">
-        <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
-        <label class="form-check-label" for="switchCheckDefault">Display Total after taxes</label>
+      <div class="filter">
+         <form  method="GET" action="/listings">
+          <input type="hidden" name="category" value="House boats">
+          <button type="submit" style="all: unset; cursor: pointer;">
+        <div><i class="fa-solid fa-building"></i></div>
+        <p>Apartments</p>
+        </button></form>
+      </div>
+      <div class="filter">
+         <form  method="GET" action="/listings">
+          <input type="hidden" name="category" value="House boats">
+          <button type="submit" style="all: unset; cursor: pointer;">
+        <div><i class="fa-solid fa-water"></i></div>
+        <p>Lakes</p>
+        </button></form>
+      </div>
     </div>
-    </div>
-    </div>
+     <button id="scrollRight" class="scroll-btn right-btn"><i class="fa-solid fa-chevron-right"></i></button>
+</div>
+    
+
     <!-- <form method="Get" action="/listings/new">
         <button>Create New</button>
     </form> -->
@@ -149,29 +352,85 @@
         <% for(listing of allListings) {%>
           <a href="/listings/<%= listing._id  %>" class="listing-link">
         <div class="card col listing-card" >
-            <img src="<%= listing.image.url  %>" class="card-img-top" alt="listing_image" style="height: 20rem;">
+            <div class="card-img-top image-container" style="position: relative; height: 20rem; overflow: hidden;">
+              <span class="new-badge">NEW</span>
+              <img src="<%= listing.image.url  %>" alt="listing_image" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+
             <div class="card-img-overlay"> </div>
             <div class="card-body">
-              <p class="card-text"><%= listing.title  %>
-            <br><%= listing.price.toLocaleString("en-IN")  %>/night<i class="tax-info">&nbsp; +18% gst</i></p>
+              <p class="card-text"><b><%= listing.title  %></b>
+            <br><span style="color: rgb(247, 204, 125); background-color: green; border-radius: 5px;">
+  &nbsp;<%= listing.price.toLocaleString("en-IN")  %>&nbsp;
+</span>/night
+<i class="tax-info" style="color: red;">&nbsp;+18% GST</i>
+<br>
+<br>
+<span class="total-cost" data-price="<%= listing.price %>" style="display: none; font-weight: bold; color: #333;">
+  Total: ₹<%= (listing.price * 1.18).toFixed(2) %>
+</span>
+</p>
+
             </div>
           </div>
         </a>
           <% } %>
         </div>
 <script>
- let priceToggle=document.getElementById("switchCheckDefault");
-  priceToggle.addEventListener("click",()=>{
-    let taxInfo=document.getElementsByClassName("tax-info");
-    for(info of taxInfo){
-      if(info.style.display!="inline"){
-        info.style.display="inline";
-      }
-      else{
-        info.style.display="none";
-      }
-    }
-  })
+let priceToggle = document.getElementById("switchCheckDefault");
+
+priceToggle.addEventListener("click", () => {
+  let taxInfoElements = document.getElementsByClassName("tax-info");
+  let totalCostElements = document.getElementsByClassName("total-cost");
+
+  for (let info of taxInfoElements) {
+    info.style.display = info.style.display !== "inline" ? "inline" : "none";
+  }
+
+  for (let el of totalCostElements) {
+    const price = parseFloat(el.dataset.price);
+    const total = (price * 1.18).toFixed(2);
+    el.innerText = `Total: ₹${total}`;
+    el.style.display = el.style.display === "none" ? "inline" : "none";
+  }
+});
+
+  function toggleLike(element) {
+    const icon = element.querySelector("i");
+    icon.classList.toggle("fa-regular");
+    icon.classList.toggle("fa-solid");
+  }
+    const filtersContainer = document.getElementById("filters");
+  const scrollLeftBtn = document.getElementById("scrollLeft");
+  const scrollRightBtn = document.getElementById("scrollRight");
+
+  scrollLeftBtn.addEventListener("click", () => {
+    filtersContainer.scrollBy({
+      left: -200, // adjust scroll amount as needed
+      behavior: "smooth"
+    });
+  });
+
+  scrollRightBtn.addEventListener("click", () => {
+    filtersContainer.scrollBy({
+      left: 200,
+      behavior: "smooth"
+    });
+  });
+  const priceBtn = document.getElementById("priceFilterBtn");
+const priceDropdown = document.getElementById("priceDropdown");
+
+priceBtn.addEventListener("click", (e) => {
+  e.stopPropagation(); // Prevent click from bubbling
+  priceDropdown.style.display = priceDropdown.style.display === "block" ? "none" : "block";
+});
+
+// Close dropdown when clicking outside
+document.addEventListener("click", () => {
+  priceDropdown.style.display = "none";
+});
+
+
    </script>
 
  </body>

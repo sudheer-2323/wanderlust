@@ -12,6 +12,12 @@ body{
 
 .nav-link{
     color:#222222 !important;
+    border-radius: 10px;
+    margin-left: 5px;
+    
+}
+.nav-link:hover{
+    border: 1px solid #fe424d;
 }
 
 .f-info-links a{
@@ -33,6 +39,9 @@ body{
 
 .f-info-socials i{
     margin-right :1rem; 
+}
+.f-info-socials i:hover{
+    columns: red;
 }
 
 .f-info{
@@ -58,8 +67,11 @@ body{
     padding: 0 !important;
 }
 
-.card-text p{
-    font-weight: 400;
+.card-text{
+    font-family: "Plus Jakarta Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
 }
 .listing-link{
     text-decoration: none;

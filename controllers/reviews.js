@@ -7,7 +7,8 @@ module.exports.createReview=async (req,res)=>{
     let listing=await Listing.findById(req.params.id);
     let newReview=new Review(req.body.review);
     const rating = req.body.review.rating;
-    if (!rating || rating < 1 || rating > 5) {
+    console.log(rating);
+    if (!rating || rating < 0 || rating > 5) {
         req.flash("error", "Please select a valid star rating.");
         return res.redirect(`/listings/${listing._id}`);
     }
