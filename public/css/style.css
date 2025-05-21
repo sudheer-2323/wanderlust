@@ -39,14 +39,18 @@ body{
 
 .f-info-socials i{
     margin-right :1rem; 
+    transition: color 0.3s ease;
+    cursor: pointer;
+
 }
 .f-info-socials i:hover{
-    columns: red;
+    transform: translateY(-2.5px);
+    color: red;
 }
 
 .f-info{
     text-align: center;
-    height: 8rem;
+    height: 14rem;
     background-color: #ebebeb;
     display:flex;
     flex-wrap: wrap;
@@ -99,4 +103,47 @@ body{
 }
 .btns{
     display: flex;
+}
+.donate-banner {
+  margin: 2rem auto;
+  padding: 1rem 2rem;
+  max-width: 900px;
+  background-color: #e6f5ea;
+  border-left: 6px solid #2ecc71;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.donate-text {
+  color: #2c3e50;
+  font-size: 1rem;
+}
+
+.donate-button {
+  background-color: #2ecc71;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.donate-button:hover {
+  background-color: #27ae60;
+}
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+main {
+    flex: 1;
+    min-height: 0;
 }

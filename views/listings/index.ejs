@@ -46,7 +46,7 @@
   padding: 0.5rem 1rem;
   border: 1px solid #ccc;
   border-radius: 2rem;
-  background-color: pink;
+  background-color: red;
   /* background-color: #f9f9f9; */
   transition: box-shadow 0.2s ease;
 }
@@ -61,7 +61,7 @@
 }
 
   .filter i {
-  font-size: 1.5rem;
+  font-size: 2rem;
   color: #ec1422;
   opacity: 1;
    z-index: 5;
@@ -121,16 +121,21 @@
   margin-top: 5px;
   height: 40px;
   width: 180%;
-  background-color: #e96972;
+  background-color: white;
+  border: 0.1px solid rgb(46, 231, 46);
   border-radius: 20px;
   align-items: center;
 }
-.filter-bar:hover{
-  background-color: #df6068;
-}
+
 .filter-bar i{
   margin-left: 20px;
   margin-top: 0.8rem;
+  transition: transform 0.3s ease, opacity 0.5s ease;
+  
+}
+.filter-bar:hover i{
+  /* background-color: #df6068; */
+  transform: translateY(-2.5px);
 }
 .price-filter {
   position: relative;
@@ -184,6 +189,8 @@
   padding: 0 1rem;
   max-width: 900px;
 }
+
+
 @media (max-width: 768px) {
   #filters {
     padding-left: 2.5rem; /* Same or more than left arrow button size */
@@ -201,7 +208,7 @@
   <div class="filter-bar">
     <div class="dropdown price-filter">
       <button class="dropdown-toggle" id="priceFilterBtn">
-        <i class="fa-solid fa-filter"></i> Price ▼
+        <i class="fa-solid fa-filter"></i> Price ▼ &nbsp;&nbsp;&nbsp;
       </button>
       <div class="dropdown-menu" id="priceDropdown">
         <form method="GET" action="/listings">
@@ -350,6 +357,7 @@
     </div>
      <button id="scrollRight" class="scroll-btn right-btn"><i class="fa-solid fa-chevron-right"></i></button>
 </div>
+
     
 
     <!-- <form method="Get" action="/listings/new">
